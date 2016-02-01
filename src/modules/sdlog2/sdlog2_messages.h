@@ -98,6 +98,20 @@ struct log_IMU_s {
 	float temp_mag;
 };
 
+#define LOG_IMUT_MSG 51     /* IMUT: temperature corrected IMU values */
+struct log_IMUT_s {
+	float acc_x_tc;
+	float acc_y_tc;
+	float acc_z_tc;
+	float gyro_x_tc;
+	float gyro_y_tc;
+	float gyro_z_tc;
+	float mag_x_tc;
+	float mag_y_tc;
+	float mag_z_tc;
+};
+
+
 /* --- SENS - OTHER SENSORS --- */
 #define LOG_SENS_MSG 5
 struct log_SENS_s {
@@ -422,7 +436,7 @@ struct log_EST4_s {
     float s[12];
 };
 
-/* --- EST4 - ESTIMATOR INNOVATIONS --- */
+/* --- EST5 - ESTIMATOR INNOVATIONS --- */
 #define LOG_EST5_MSG 49
 struct log_EST5_s {
     float s[8];
@@ -505,7 +519,12 @@ struct log_CTS_s {
 	float yaw_rate;
 };
 
+/* WARNING: ID 48 is used for EST4 - ESTIMATOR INNOVATIONS --- */
+/* WARNING: ID 49 is used for EST5 - ESTIMATOR INNOVATIONS --- */
+
 #define LOG_OUT1_MSG 50
+
+/* WARNING: ID 51 is used for IMUT - IMU TEMPERATURE CORRECTED */
 
 /********** SYSTEM MESSAGES, ID > 0x80 **********/
 
@@ -538,6 +557,7 @@ static const struct log_format_s log_formats[] = {
 	LOG_FORMAT_S(IMU, IMU, "ffffffffffff",		"AccX,AccY,AccZ,GyroX,GyroY,GyroZ,MagX,MagY,MagZ,tA,tG,tM"),
 	LOG_FORMAT_S(IMU1, IMU, "ffffffffffff",		"AccX,AccY,AccZ,GyroX,GyroY,GyroZ,MagX,MagY,MagZ,tA,tG,tM"),
 	LOG_FORMAT_S(IMU2, IMU, "ffffffffffff",		"AccX,AccY,AccZ,GyroX,GyroY,GyroZ,MagX,MagY,MagZ,tA,tG,tM"),
+	LOG_FORMAT_S(IMUT, IMUT, "fffffffff",		"AccX,AccY,AccZ,GyroX,GyroY,GyroZ,MagX,MagY,MagZ"),
 	LOG_FORMAT_S(SENS, SENS, "fffff",		"BaroPres,BaroAlt,BaroTemp,DiffPres,DiffPresFilt"),
 	LOG_FORMAT_S(AIR1, SENS, "fffff",	"BaroPa,BaroAlt,BaroTmp,DiffPres,DiffPresF"),
 	LOG_FORMAT(LPOS, "ffffffffLLfBBff",	"X,Y,Z,Dist,DistR,VX,VY,VZ,RLat,RLon,RAlt,PFlg,GFlg,EPH,EPV"),

@@ -105,7 +105,7 @@ script:
 # Only provide UAVCAN firmware binaries for Pixracer and Pixhawk 3
   - echo 'Building UAVCAN node firmware..' && git clone https://github.com/thiemar/vectorcontrol
   - cd vectorcontrol
-  - BOARD=s2740vc_1_0 make && BOARD=px4esc_1_6 make
+  - BOARD=s2740vc_1_0 make --silent && BOARD=px4esc_1_6 make --silent
   - ../Tools/uavcan_copy.sh
   - cd ..
   - echo 'Building NuttX px4fmu-v4 Firmware..' && make px4fmu-v4_default
