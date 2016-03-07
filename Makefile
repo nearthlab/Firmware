@@ -77,7 +77,7 @@ endif
 # in that directory with the target upload.
 
 #  explicity set default build target
-all: px4-stm32f4discovery_default
+all: px4fmu-v2_default upload
 
 # Parsing
 # --------------------------------------------------------------------
@@ -109,8 +109,8 @@ endif
 # describe how to build a cmake config
 define cmake-build
 +@if [ $(PX4_CMAKE_GENERATOR) = "Ninja" ] && [ -e $(PWD)/build_$@/Makefile ]; then rm -rf $(PWD)/build_$@; fi
-+git submodule init
-+Tools/check_submodules.sh 
+#+git submodule init
+#+Tools/check_submodules.sh 
 +@if [ ! -e $(PWD)/build_$@/CMakeCache.txt ]; then git submodule sync && git submodule init && mkdir -p $(PWD)/build_$@ && cd $(PWD)/build_$@ && cmake .. -G$(PX4_CMAKE_GENERATOR) -DCONFIG=$(1); fi
 +$(PX4_MAKE) -C $(PWD)/build_$@ $(PX4_MAKE_ARGS) $(ARGS)
 endef
@@ -177,7 +177,7 @@ posix_rpi2_default:
 
 posix_rpi2_release:
 	$(call cmake-build,$@)
-
+	
 posix: posix_sitl_default
 
 sitl_deprecation:
